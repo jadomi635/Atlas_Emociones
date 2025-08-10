@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Página dedicada a la emoción de la Tristeza, con información, beneficios y estrategias para comprenderla y manejarla." />
+<title>Tristeza - Atlas de las Emociones</title>
+<style>
+  /* ====== ESTILOS ====== */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom, #dce7f7, #a3bde8);
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 1.5s ease;
+  }
+  header {
+    background-color: #5472d3;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(83, 110, 207, 0.6);
+    position: relative;
+    animation: fadeInDown 1s ease;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: #e3eafc;
+  }
+  .frase-motivadora {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #c9d4f6;
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+  }
+  .btn-regresar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #7f9be9;
+    color: white;
+    font-size: 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
+  .btn-regresar:hover {
+    background-color: #506fca;
+  }
+  .container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 60px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.2s ease;
+  }
+  .silueta {
+    flex: 1;
+    min-width: 350px;
+    text-align: center;
+  }
+  .silueta img {
+    width: 300px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(83, 110, 207, 0.3);
+    margin-bottom: 30px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+  }
+  .silueta img:hover {
+    transform: scale(1.25) rotate(2deg);
+    box-shadow: 0 20px 50px rgba(83, 110, 207, 0.8);
+  }
+  .foto-titulo {
+    font-weight: 700;
+    color: #7f9be9;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+  }
+  .tabs {
+    flex: 2;
+    min-width: 320px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(83, 110, 207, 0.3);
+    padding: 25px 30px;
+  }
+  .tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab-buttons button {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    background: #d3dffb;
+    color: #5472d3;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .tab-buttons button:hover {
+    transform: scale(1.05);
+  }
+  .tab-buttons button.active {
+    background: #5472d3;
+    color: white;
+    font-weight: bold;
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.8s ease;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  h2 {
+    color: #5472d3;
+    margin-top: 0;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  .foto {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(83, 110, 207, 0.4);
+    transform: scale(1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .foto:hover {
+    transform: scale(1.25) rotate(-2deg);
+    box-shadow: 0 20px 50px rgba(83, 110, 207, 0.8);
+  }
+
+  /* Subtab styles */
+  .subtab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #5472d3;
+  }
+  .subtab-button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    background: #d3dffb;
+    color: #5472d3;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .subtab-button:hover {
+    background: #a3bde8;
+    transform: scale(1.05);
+  }
+  .subtab-button.active {
+    background: #5472d3;
+    color: white;
+    font-weight: bold;
+    cursor: default;
+  }
+  .subtab-content {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .subtab-content.active {
+    display: block;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Emojis flotantes */
+  .emoji {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.8;
+    z-index: 9999;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>😢 Tristeza</h1>
+  <p class="frase-motivadora">Permítete sentir con calma, porque en la tristeza también hay fuerza y crecimiento. 💙</p>
+  <a href="emociones.html" class="btn-regresar">⬅ Regresar</a>
+</header>
+
+<div class="container">
+  <div class="silueta">
+    <h2>¿Dónde se siente?</h2>
+    <img src="silueta-tristeza.png" alt="Silueta Tristeza - zonas de activación corporal" />
+    
+    <div class="foto-titulo">Cómo se representa</div>
+    <img class="foto" src="foto-tristeza.png" alt="Persona expresando tristeza" />
+  </div>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="active" data-tab="descripcion">Descripción</button>
+      <button data-tab="beneficios">Beneficios para la salud</button>
+      <button data-tab="curiosidades">Datos curiosos</button>
+      <button data-tab="estrategias">Estrategias</button>
+      <button data-tab="ejemplos">Ejemplos en la vida diaria</button>
+    </div>
+
+    <!-- Contenido pestaña Descripción con subtabs -->
+    <div id="descripcion" class="tab-content active">
+      <p>La tristeza es una emoción fundamental que, aunque dolorosa, cumple un papel vital en nuestra salud emocional y crecimiento personal.</p>
+
+      <div class="subtab-buttons">
+        <button class="subtab-button active" data-subtab="definicion">Definición y naturaleza</button>
+        <button class="subtab-button" data-subtab="duelo">Tristeza y duelo</button>
+        <button class="subtab-button" data-subtab="variabilidad">Variabilidad en la experiencia</button>
+        <button class="subtab-button" data-subtab="crecimiento">Oportunidad para el crecimiento</button>
+        <button class="subtab-button" data-subtab="clinico">Abordaje clínico y terapéutico</button>
+        <button class="subtab-button" data-subtab="advertencia">Advertencia importante</button>
+      </div>
+
+      <div id="definicion" class="subtab-content active">
+        <p>
+          La tristeza es una emoción humana básica y natural, caracterizada por sentimientos de desánimo, pérdida o desesperanza, que se experimenta en respuesta a situaciones de decepción, pérdida o frustración. Es una respuesta emocional saludable que permite procesar situaciones difíciles y adaptarse a ellas.
+        </p>
+        <p>
+          En psicología y psiquiatría, la tristeza puede ser un síntoma de condiciones como la depresión cuando es persistente o intensa, y afecta la vida diaria.
+        </p>
+      </div>
+
+      <div id="duelo" class="subtab-content">
+        <p>
+          La tristeza es un componente esencial del duelo, proceso emocional natural que ocurre tras la pérdida de un ser querido. El duelo puede durar desde semanas hasta años, y su expresión varía según factores personales y culturales.
+        </p>
+      </div>
+
+      <div id="variabilidad" class="subtab-content">
+        <p>
+          No todas las personas experimentan la tristeza igual. Factores genéticos, biológicos, ambientales y psicológicos influyen en su intensidad y duración. Personas con traumas previos pueden sentir tristeza más intensa o duradera.
+        </p>
+      </div>
+
+      <div id="crecimiento" class="subtab-content">
+        <p>
+          Aunque la tristeza puede ser dolorosa, también ofrece una oportunidad para la introspección y el crecimiento personal. Permite reevaluar prioridades y desarrollar resiliencia.
+        </p>
+      </div>
+
+      <div id="clinico" class="subtab-content">
+        <p>
+          En el ámbito clínico, la tristeza se evalúa mediante entrevistas y cuestionarios, y se aborda con psicoterapia, medicación y estrategias de autoayuda como ejercicio y meditación para mejorar el bienestar emocional.
+        </p>
+      </div>
+
+      <div id="advertencia" class="subtab-content">
+        <p>
+          Si la tristeza es intensa, persistente y afecta tu vida diaria, o se acompaña de pensamientos suicidas, busca ayuda profesional inmediatamente. Hay tratamientos efectivos y apoyo disponible.
+        </p>
+      </div>
+    </div>
+
+    <!-- Beneficios -->
+    <div id="beneficios" class="tab-content">
+      <h2>Beneficios para la salud</h2>
+      <ul>
+        <li>Permite procesar emociones y adaptarse a pérdidas.</li>
+        <li>Favorece la introspección y el crecimiento personal.</li>
+        <li>Promueve la empatía y la conexión social.</li>
+        <li>Contribuye a la regulación emocional saludable.</li>
+      </ul>
+    </div>
+
+    <!-- Datos curiosos -->
+    <div id="curiosidades" class="tab-content">
+      <h2>Datos curiosos</h2>
+      <ul>
+        <li>Las lágrimas emocionales contienen hormonas del estrés, ayudando a liberar tensión.</li>
+        <li>Escuchar música triste puede ser reconfortante y generar sensación de compañía emocional.</li>
+        <li>Compartir la tristeza fortalece vínculos y genera empatía.</li>
+      </ul>
+    </div>
+
+    <!-- Estrategias -->
+    <div id="estrategias" class="tab-content">
+      <h2>Estrategias para manejar la tristeza</h2>
+      <ul>
+        <li>Hablar con personas de confianza sobre lo que sientes.</li>
+        <li>Escribir en un diario emocional para procesar experiencias.</li>
+        <li>Permitir el llanto como forma natural de alivio.</li>
+        <li>Realizar actividad física ligera para activar endorfinas.</li>
+        <li>Buscar momentos de conexión con la naturaleza o el arte.</li>
+      </ul>
+    </div>
+
+    <!-- Ejemplos -->
+    <div id="ejemplos" class="tab-content">
+      <h2>Ejemplos en la vida diaria</h2>
+      <ul>
+        <li>Sentir tristeza al despedirse de un ser querido durante una mudanza.</li>
+        <li>Experimentar desánimo después de una decepción laboral o académica.</li>
+        <li>Llorar al escuchar una canción que recuerda un momento especial perdido.</li>
+        <li>Reflexionar y buscar apoyo tras una ruptura amorosa.</li>
+        <li>Buscar momentos tranquilos en la naturaleza para reconectar con uno mismo.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pestañas principales
+  const tabButtons = document.querySelectorAll('.tab-buttons button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Subpestañas dentro de descripción
+  const subtabButtons = document.querySelectorAll('.subtab-button');
+  const subtabContents = document.querySelectorAll('.subtab-content');
+
+  subtabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      subtabButtons.forEach(btn => btn.classList.remove('active'));
+      subtabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.subtab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

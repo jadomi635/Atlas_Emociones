@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Página dedicada a la emoción del Enojo, con información, beneficios y estrategias para gestionarlo." />
+<title>Enojo - Atlas de las Emociones</title>
+<style>
+  /* ====== ESTILOS ====== */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom, #ffe5e0, #ffb3a6);
+    color: #4a0000;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 1.5s ease;
+  }
+  header {
+    background-color: #d32f2f;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.7);
+    position: relative;
+    animation: fadeInDown 1s ease;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: #fff3f3;
+  }
+  .frase-motivadora {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #fff3f3;
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+  }
+  .btn-regresar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #b71c1c;
+    color: white;
+    font-size: 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
+  .btn-regresar:hover {
+    background-color: #7f0000;
+  }
+  .container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 60px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.2s ease;
+  }
+  .silueta {
+    flex: 1;
+    min-width: 350px;
+    text-align: center;
+  }
+  .silueta img {
+    width: 180px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+    margin-bottom: 30px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+  }
+  .silueta img:hover {
+    transform: scale(1.25) rotate(3deg);
+    box-shadow: 0 20px 50px rgba(211, 47, 47, 0.8);
+  }
+  .foto-titulo {
+    font-weight: 700;
+    color: #b71c1c;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+  }
+  .tabs {
+    flex: 2;
+    min-width: 320px;
+    background: #fff3f3;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3);
+    padding: 25px 30px;
+  }
+  .tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab-buttons button {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    background: #ffd6d6;
+    color: #b71c1c;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .tab-buttons button:hover {
+    transform: scale(1.05);
+  }
+  .tab-buttons button.active {
+    background: #b71c1c;
+    color: white;
+    font-weight: bold;
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.8s ease;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  h2 {
+    color: #b71c1c;
+    margin-top: 0;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  .foto {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
+    transform: scale(1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .foto:hover {
+    transform: scale(1.25) rotate(-3deg);
+    box-shadow: 0 20px 50px rgba(211, 47, 47, 0.8);
+  }
+
+  /* Subtab styles */
+  .subtab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #b71c1c;
+  }
+  .subtab-button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    background: #ffd6d6;
+    color: #b71c1c;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .subtab-button:hover {
+    background: #ffbaba;
+    transform: scale(1.05);
+  }
+  .subtab-button.active {
+    background: #b71c1c;
+    color: white;
+    font-weight: bold;
+    cursor: default;
+  }
+  .subtab-content {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .subtab-content.active {
+    display: block;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Emojis flotantes */
+  .emoji {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.8;
+    z-index: 9999;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>😡 Enojo</h1>
+  <p class="frase-motivadora"></p>
+  <a href="emociones.html" class="btn-regresar">⬅ Regresar</a>
+</header>
+
+<div class="container">
+  <div class="silueta">
+    <h2>¿Dónde se siente?</h2>
+    <img src="silueta-enojo.png" alt="Silueta Enojo - zonas de activación corporal" />
+    
+    <div class="foto-titulo">Cómo se representa</div>
+    <img class="foto" src="foto-enojo.png" alt="Personas mostrando enojo" />
+  </div>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="active" data-tab="descripcion">Descripción</button>
+      <button data-tab="beneficios">Beneficios de gestionarlo</button>
+      <button data-tab="curiosidades">Datos curiosos</button>
+      <button data-tab="estrategias">Estrategias para controlarlo</button>
+      <button data-tab="ejemplos">Ejemplos en la vida diaria</button>
+    </div>
+
+    <!-- Contenido pestaña Descripción con subtabs -->
+    <div id="descripcion" class="tab-content active">
+      <p>El enojo es una emoción natural que puede ser útil para identificar injusticias o peligros.</p>
+
+      <div class="subtab-buttons">
+        <button class="subtab-button active" data-subtab="que-es">¿Qué es el enojo?</button>
+        <button class="subtab-button" data-subtab="origen">Origen de la palabra “enojo”</button>
+        <button class="subtab-button" data-subtab="puntos-clave">Puntos clave</button>
+        <button class="subtab-button" data-subtab="manifestacion">¿Cómo se manifiesta el enojo?</button>
+        <button class="subtab-button" data-subtab="beneficios-detallados">Beneficios del enojo controlado</button>
+        <button class="subtab-button" data-subtab="diferencias">Diferencias con la ira</button>
+        <button class="subtab-button" data-subtab="contenido-adicional">Contenido adicional</button>
+      </div>
+
+      <div id="que-es" class="subtab-content active">
+        <p>
+          El enojo es una emoción básica que surge como respuesta a situaciones percibidas como injustas, frustrantes o amenazantes. Se caracteriza por un sentimiento intenso de molestia y tensión que puede variar en intensidad desde una ligera irritación hasta una furia intensa.
+        </p>
+        <p>
+          Esta emoción tiene una función adaptativa importante, pues prepara al cuerpo para responder a desafíos o conflictos, activando mecanismos de defensa y motivando a la acción para resolver problemas.
+        </p>
+      </div>
+
+      <div id="origen" class="subtab-content">
+        <p>
+          La palabra “enojo” proviene del latín <em>inodium</em> que significa “sentimiento de odio o disgusto”. Con el tiempo, en el español evolucionó para describir el estado emocional de molestia o ira leve a moderada.
+        </p>
+      </div>
+
+      <div id="puntos-clave" class="subtab-content">
+        <ul>
+          <li>Es una emoción natural y necesaria para la defensa personal y la justicia.</li>
+          <li>Puede expresarse de manera saludable o destructiva, dependiendo de cómo se gestione.</li>
+          <li>El enojo activa respuestas fisiológicas como aumento de la presión arterial y tensión muscular.</li>
+          <li>Gestionado adecuadamente, puede fomentar soluciones y mejoras personales y sociales.</li>
+        </ul>
+      </div>
+
+      <div id="manifestacion" class="subtab-content">
+        <p>
+          El enojo se manifiesta en varios niveles:
+        </p>
+        <ul>
+          <li><strong>Físico:</strong> tensión muscular, puños apretados, rostro rojo o fruncido.</li>
+          <li><strong>Emocional:</strong> sensación de frustración, irritabilidad, deseos de confrontar.</li>
+          <li><strong>Conductual:</strong> gritar, discutir, o incluso agresividad en casos extremos.</li>
+          <li><strong>Fisiológico:</strong> aumento del ritmo cardíaco, sudoración, respiración acelerada.</li>
+        </ul>
+      </div>
+
+      <div id="beneficios-detallados" class="subtab-content">
+        <p>
+          Aunque a menudo se percibe como negativa, el enojo también tiene beneficios:
+        </p>
+        <ul>
+          <li>Motiva el cambio ante situaciones injustas o insatisfactorias.</li>
+          <li>Incrementa la fuerza y la determinación para superar obstáculos.</li>
+          <li>Favorece la comunicación clara cuando se expresa adecuadamente.</li>
+          <li>Permite establecer límites saludables en las relaciones.</li>
+        </ul>
+      </div>
+
+      <div id="diferencias" class="subtab-content">
+        <p>
+          El enojo y la ira se relacionan, pero no son lo mismo:
+        </p>
+        <p>
+          El enojo suele ser una molestia pasajera y controlable, mientras que la ira implica una emoción más intensa, a menudo difícil de manejar y que puede derivar en agresiones o comportamientos destructivos.
+        </p>
+      </div>
+
+      <div id="contenido-adicional" class="subtab-content">
+        <p>
+          Aprender a reconocer y expresar el enojo de manera saludable es fundamental para el bienestar emocional y las relaciones interpersonales.
+        </p>
+        <p>
+          Técnicas como la comunicación asertiva, la respiración profunda y la reflexión ayudan a canalizar esta emoción para que sea constructiva y no dañina.
+        </p>
+        <p>
+          Puedes aprender más sobre otras emociones en <a href="alegria.html">la página de la alegría</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Beneficios -->
+    <div id="beneficios" class="tab-content">
+      <h2>Beneficios de gestionar el enojo</h2>
+      <ul>
+        <li>Reducción del estrés y mejora del bienestar emocional.</li>
+        <li>Mejora la comunicación y las relaciones personales.</li>
+        <li>Previene problemas de salud asociados con la tensión crónica.</li>
+        <li>Fortalece la autoestima y la autoeficacia.</li>
+        <li>Fomenta un ambiente social más armonioso.</li>
+      </ul>
+    </div>
+
+    <!-- Datos curiosos -->
+    <div id="curiosidades" class="tab-content">
+      <h2>Datos curiosos</h2>
+      <ul>
+        <li>El enojo es una de las emociones más universales y se encuentra en todas las culturas.</li>
+        <li>El color rojo se asocia psicológicamente con el enojo y la pasión.</li>
+        <li>Algunas personas liberan el enojo con actividades físicas como el deporte.</li>
+        <li>El enojo mal gestionado puede afectar la salud cardiovascular.</li>
+      </ul>
+    </div>
+
+    <!-- Estrategias -->
+    <div id="estrategias" class="tab-content">
+      <h2>Estrategias para controlar el enojo</h2>
+      <ul>
+        <li>Practicar la respiración profunda para calmar el cuerpo.</li>
+        <li>Tomar un tiempo fuera para reflexionar antes de reaccionar.</li>
+        <li>Expresar el enojo de forma asertiva y respetuosa.</li>
+        <li>Realizar actividad física para liberar tensión.</li>
+        <li>Buscar ayuda profesional si el enojo es frecuente o descontrolado.</li>
+      </ul>
+    </div>
+
+    <!-- Ejemplos -->
+    <div id="ejemplos" class="tab-content">
+      <h2>Ejemplos en la vida diaria</h2>
+      <ul>
+        <li>Sentir molestia cuando alguien no cumple un compromiso.</li>
+        <li>Experimentar frustración al enfrentar injusticias.</li>
+        <li>Molestarse por discusiones o malentendidos con amigos o familia.</li>
+        <li>Reaccionar ante situaciones de tráfico o retrasos.</li>
+        <li>Expresar descontento en el trabajo por carga excesiva o mal trato.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pestañas principales
+  const tabButtons = document.querySelectorAll('.tab-buttons button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Subpestañas dentro de descripción
+  const subtabButtons = document.querySelectorAll('.subtab-button');
+  const subtabContents = document.querySelectorAll('.subtab-content');
+
+  subtabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      subtabButtons.forEach(btn => btn.classList.remove('active'));
+      subtabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.subtab).classList.add('active');
+    });
+  });
+
+  // Frase motivadora animada con emojis y texto
+  const frases = [
+    "El enojo bien canalizado impulsa cambios positivos.",
+    "Reconocer tu enojo es el primer paso para controlarlo.",
+    "Respira, piensa y actúa con calma y firmeza.",
+    "La fuerza del enojo puede transformarse en energía constructiva.",
+    "Gestionar el enojo es cuidar de tu bienestar y de los demás."
+  ];
+  const fraseElement = document.querySelector('.frase-motivadora');
+  let fraseIndex = 0;
+
+  function cambiarFrase() {
+    fraseElement.textContent = frases[fraseIndex];
+    fraseIndex = (fraseIndex + 1) % frases.length;
+  }
+  cambiarFrase();
+  setInterval(cambiarFrase, 6000);
+
+  // Emoticones flotantes animados
+  const emojis = ['😡', '🔥', '💢', '😤', '👊'];
+  function crearEmoji() {
+    const emoji = document.createElement('div');
+    emoji.classList.add('emoji');
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.left = Math.random() * 100 + 'vw';
+    emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+    emoji.style.animationDuration = (4 + Math.random() * 3) + 's';
+    document.body.appendChild(emoji);
+    setTimeout(() => {
+      emoji.remove();
+    }, 7000);
+  }
+  setInterval(crearEmoji, 900);
+
+</script>
+
+</body>
+</html>

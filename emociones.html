@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emociones - Atlas de las Emociones</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Pacifico&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --color-alegria-start: #FFD700;
+    --color-alegria-end: #FFC107;
+    --color-tristeza-start: #1E90FF;
+    --color-tristeza-end: #1976D2;
+    --color-miedo-start: #4B0082;
+    --color-miedo-end: #311B92;
+    --color-desagrado-start: #FF6347;
+    --color-desagrado-end: #D84315;
+    --color-enojo-start: #FF4500;
+    --color-enojo-end: #B71C1C;
+    --transition-time: 0.3s;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #fff5e6, #e6f7ff);
+    padding: 30px 20px;
+    text-align: center;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background var(--transition-time), color var(--transition-time);
+  }
+
+  body.dark {
+    background: #121212;
+    color: #eee;
+  }
+
+  /* Botones fijos */
+  .back-button, .dark-toggle {
+    position: fixed;
+    top: 20px;
+    padding: 12px 22px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(156, 39, 176, 0.6);
+    user-select: none;
+    z-index: 1000;
+    color: white;
+    background: linear-gradient(45deg, #7e57c2, #9c27b0);
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background var(--transition-time);
+  }
+
+  .back-button {
+    left: 20px;
+  }
+
+  .dark-toggle {
+    left: auto;
+    right: 80px; /* dejamos espacio para el boton conclusion */
+  }
+
+  .back-button:hover, .dark-toggle:hover {
+    transform: scale(1.07);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.85);
+  }
+
+  .back-button:active, .dark-toggle:active {
+    transform: scale(0.98);
+  }
+
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #7e57c2;
+    text-shadow: 1px 1px 3px #cdb4db;
+    transition: color var(--transition-time), text-shadow var(--transition-time);
+  }
+
+  body.dark h1 {
+    color: #bb86fc;
+    text-shadow: 1px 1px 5px #6200ee;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    padding: 25px 0;
+    border-radius: 18px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.3s ease, background var(--transition-time);
+    user-select: none;
+    position: relative;
+
+    opacity: 0;
+    transform: translateY(30px);
+    transition-property: opacity, transform, box-shadow, background;
+  }
+
+  .card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card:nth-child(1) { transition-delay: 0.0s; }
+  .card:nth-child(2) { transition-delay: 0.1s; }
+  .card:nth-child(3) { transition-delay: 0.2s; }
+  .card:nth-child(4) { transition-delay: 0.3s; }
+  .card:nth-child(5) { transition-delay: 0.4s; }
+
+  .card.clicked {
+    box-shadow: 0 0 25px 8px #bb86fc;
+    transform: scale(0.95);
+  }
+
+  /* Emotions colors */
+  .alegria {
+    background: linear-gradient(135deg, var(--color-alegria-start), var(--color-alegria-end));
+    box-shadow: 0 8px 20px #ffca28cc;
+  }
+  .tristeza {
+    background: linear-gradient(135deg, var(--color-tristeza-start), var(--color-tristeza-end));
+    box-shadow: 0 8px 20px #2196f3cc;
+  }
+  .miedo {
+    background: linear-gradient(135deg, var(--color-miedo-start), var(--color-miedo-end));
+    box-shadow: 0 8px 20px #5e35b1cc;
+  }
+  .desagrado {
+    background: linear-gradient(135deg, var(--color-desagrado-start), var(--color-desagrado-end));
+    box-shadow: 0 8px 20px #ef5350cc;
+  }
+  .enojo {
+    background: linear-gradient(135deg, var(--color-enojo-start), var(--color-enojo-end));
+    box-shadow: 0 8px 20px #d32f2fcc;
+  }
+
+  .card:hover {
+    transform: scale(1.07);
+    box-shadow:
+      0 0 15px 5px rgba(255, 255, 255, 0.6),
+      0 12px 25px rgba(0,0,0,0.25);
+  }
+
+  .card:active {
+    transform: scale(0.98);
+  }
+
+  .card::before {
+    content: attr(data-emoji);
+    font-size: 2.8rem;
+    margin-right: 12px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .card:hover::after {
+    content: attr(data-quote);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .card::after {
+    opacity: 0;
+  }
+
+  body.dark .alegria {
+    box-shadow: 0 8px 25px #ffea0033;
+  }
+  body.dark .tristeza {
+    box-shadow: 0 8px 25px #64b5f633;
+  }
+  body.dark .miedo {
+    box-shadow: 0 8px 25px #9575cd33;
+  }
+  body.dark .desagrado {
+    box-shadow: 0 8px 25px #ef9a9a33;
+  }
+  body.dark .enojo {
+    box-shadow: 0 8px 25px #e5737333;
+  }
+
+  /* Botón para ver conclusión estilo tarjeta en esquina derecha */
+  #btnVerConclusion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 180px;
+    height: 130px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #e53935, #b71c1c);
+    color: white;
+    box-shadow: 0 8px 20px rgba(229, 57, 53, 0.8);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+    z-index: 1100;
+  }
+  #btnVerConclusion::before {
+    content: "💡";
+    font-size: 2.8rem;
+    margin-right: 12px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+  }
+  #btnVerConclusion:hover {
+    background: linear-gradient(135deg, #b71c1c, #7f0000);
+    transform: scale(1.07);
+    box-shadow: 0 12px 25px rgba(183, 28, 28, 0.9);
+  }
+  #btnVerConclusion:active {
+    transform: scale(0.98);
+  }
+
+  /* Modal para conclusión con paginación */
+  #modalConclusion {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+  }
+  #modalConclusion .modal-content {
+    background: white;
+    padding: 30px 40px 40px 40px;
+    border-radius: 15px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #modalConclusion h2 {
+    margin-top: 0;
+    color: #e53935;
+    font-size: 2rem;
+  }
+  #modalConclusion p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #444;
+    flex-grow: 1;
+  }
+
+  /* Controles de paginación */
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .pagination-controls button {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border-radius: 10px;
+    background: #b71c1c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(183, 28, 28, 0.8);
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  .pagination-controls button:disabled {
+    background: #ddd;
+    color: #999;
+    cursor: default;
+    box-shadow: none;
+  }
+  .pagination-controls button:hover:not(:disabled) {
+    background: #7f0000;
+  }
+
+  /* Botón cerrar modal */
+  #btnCerrarModal {
+    margin-top: 15px;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    background: #e53935;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.8);
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  #btnCerrarModal:hover {
+    background: #b71c1c;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .back-button, .dark-toggle, #btnVerConclusion {
+      width: 140px;
+      height: 110px;
+      font-size: 1.1rem;
+      padding: 20px 0;
+      top: 15px;
+    }
+    .dark-toggle {
+      right: 165px;
+    }
+    #btnVerConclusion {
+      right: 20px;
+    }
+    .card {
+      height: 110px;
+      font-size: 1.1rem;
+      padding: 20px 0;
+    }
+    .card::before, #btnVerConclusion::before {
+      font-size: 2.2rem;
+      margin-right: 8px;
+    }
+    #modalConclusion .modal-content {
+      padding: 25px 20px 30px 20px;
+    }
+    #modalConclusion h2 {
+      font-size: 1.7rem;
+    }
+    #modalConclusion p {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <button class="back-button" onclick="window.location.href='index.html'">← Regresar</button>
+  <button class="dark-toggle" aria-label="Cambiar modo oscuro" title="Modo oscuro / claro">🌓</button>
+
+  <h1>Selecciona una emoción</h1>
+
+  <div class="grid">
+    <a href="alegria.html" class="card alegria" data-emoji="😊" data-quote="La alegría es el sol que ilumina el alma.">Alegría</a>
+    <a href="tristeza.html" class="card tristeza" data-emoji="😢" data-quote="A veces llorar es sanar el corazón.">Tristeza</a>
+    <a href="miedo.html" class="card miedo" data-emoji="😨" data-quote="El miedo es un maestro, no un enemigo.">Miedo</a>
+    <a href="desagrado.html" class="card desagrado" data-emoji="🤢" data-quote="El desagrado nos guía hacia lo que evitamos.">Desagrado</a>
+    <a href="enojo.html" class="card enojo" data-emoji="😡" data-quote="El enojo es fuego que puede quemar o iluminar.">Enojo</a>
+  </div>
+
+  <button id="btnVerConclusion" title="Ver mi conclusión">Ver mi conclusión</button>
+
+  <!-- Modal conclusión -->
+  <div id="modalConclusion">
+    <div class="modal-content">
+      <h2>Conclusión</h2>
+      <p id="conclusionText">
+        <!-- Texto dinámico aquí -->
+      </p>
+      <div class="pagination-controls">
+        <button id="prevPage" disabled>← Anterior</button>
+        <button id="nextPage">Siguiente →</button>
+      </div>
+      <button id="btnCerrarModal">Cerrar</button>
+    </div>
+  </div>
+
+<script>
+  // Animación scroll reveal para las tarjetas
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // Modo oscuro toggle
+  const darkToggle = document.querySelector('.dark-toggle');
+  darkToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+
+  // Texto de conclusión dividido en páginas
+  const conclusionPages = [
+    `En este recorrido por las emociones, hemos descubierto que cada una es una pieza fundamental del mosaico humano, un reflejo profundo de nuestra esencia y la conexión con nuestro entorno. La alegría nos impulsa a celebrar la vida y a encontrar luz incluso en los momentos más oscuros, recordándonos que la felicidad es un derecho inherente y una elección constante.`,
+
+    `La tristeza, lejos de ser solo dolor, es un espacio sagrado donde el alma sana y se fortalece; es la puerta hacia la empatía y la comprensión, un recordatorio de que el sentir profundo nos humaniza y nos hace más conscientes de nuestra vulnerabilidad y fortaleza.`,
+
+    `El miedo, ese maestro silencioso, nos protege y nos invita a reflexionar, a mirar dentro de nosotros para descubrir nuestros límites y potencialidades. No es enemigo, sino aliado cuando aprendemos a escucharlo sin dejarnos paralizar, convirtiendo su energía en valentía y crecimiento.`,
+
+    `El desagrado actúa como un brújula interna, señalándonos lo que debemos evitar o transformar. Es una señal para cuidar nuestro bienestar físico y emocional, para establecer límites saludables y para buscar ambientes y relaciones que nutran nuestro ser.`,
+
+    `Finalmente, el enojo, esa fuerza ardiente, nos revela nuestra pasión y necesidad de justicia. Cuando lo gestionamos con conciencia, se transforma en energía creadora y transformadora, permitiéndonos defendernos y evolucionar, convirtiéndose en motor para el cambio y el autoconocimiento.`,
+
+    `Así, reconocer, aceptar y aprender a gestionar estas emociones con inteligencia emocional nos libera y empodera para transformar cualquier desafío en una oportunidad de crecimiento y sabiduría. La verdadera fuerza no reside en reprimirlas, sino en abrazarlas con conciencia y valentía. De esta manera, cada emoción se convierte en una aliada invaluable en el viaje hacia nuestro bienestar integral y equilibrio personal.`
+  ];
+
+  let currentPage = 0;
+  const conclusionText = document.getElementById('conclusionText');
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+
+  function updateConclusionPage() {
+    conclusionText.textContent = conclusionPages[currentPage];
+    prevPageBtn.disabled = currentPage === 0;
+    nextPageBtn.disabled = currentPage === conclusionPages.length - 1;
+  }
+
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      updateConclusionPage();
+    }
+  });
+
+  nextPageBtn.addEventListener('click', () => {
+    if (currentPage < conclusionPages.length - 1) {
+      currentPage++;
+      updateConclusionPage();
+    }
+  });
+
+  // Modal conclusión
+  const btnVerConclusion = document.getElementById('btnVerConclusion');
+  const modalConclusion = document.getElementById('modalConclusion');
+  const btnCerrarModal = document.getElementById('btnCerrarModal');
+
+  btnVerConclusion.addEventListener('click', () => {
+    modalConclusion.style.display = 'flex';
+    currentPage = 0;
+    updateConclusionPage();
+    document.body.style.overflow = 'hidden'; // Evitar scroll del fondo
+  });
+
+  btnCerrarModal.addEventListener('click', () => {
+    modalConclusion.style.display = 'none';
+    document.body.style.overflow = ''; // Restaurar scroll
+  });
+
+  // Cerrar modal si se da click fuera del contenido
+  modalConclusion.addEventListener('click', (e) => {
+    if(e.target === modalConclusion){
+      modalConclusion.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>

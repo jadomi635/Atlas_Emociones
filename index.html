@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atlas de las Emociones</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #fcefe3, #e7d9f7);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #5e548e;
+    background-image: url('https://www.transparenttextures.com/patterns/diagmonds-light.png');
+    background-repeat: repeat;
+    background-color: #fcefe3;
+  }
+
+  .main-wrapper {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  /* Contenedor que une imagen + texto lado a lado */
+  .media-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  .main-image {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(126, 87, 194, 0.4);
+    animation: fadeIn 2s ease-in-out;
+    border: 3px solid #bfa6f2;
+    background-color: #fcf8ff;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .main-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 70px rgba(126, 87, 194, 0.6);
+  }
+
+  /* Contenedor del texto + botón con alineación vertical centrada y texto ancho */
+  .text-content {
+    display: flex;
+    align-items: center; /* Centrar vertical */
+    width: calc(100% - 350px - 40px); /* Ancho total menos imagen y espacio */
+    max-width: none;
+  }
+
+  .text-block {
+    flex-grow: 1;
+    /* Para que el texto use todo el ancho posible */
+  }
+
+  .info-text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #5e548e;
+    line-height: 1.5;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  /* Texto científico un poco más pequeño y en morado oscuro */
+  .info-text.scientific {
+    font-weight: 400;
+    font-size: 1rem;
+    color: #4a3f6f;
+    margin-top: 0;
+  }
+
+  a.explore-btn {
+    padding: 14px 40px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(45deg, #9c27b0, #7e57c2);
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    user-select: none;
+    margin-left: 20px;
+    flex-shrink: 0;
+  }
+  a.explore-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.6);
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .media-row {
+      flex-direction: column;
+      gap: 25px;
+      max-width: 320px;
+      align-items: center;
+      justify-content: center;
+    }
+    .main-image {
+      max-width: 320px;
+    }
+    .text-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100% !important;
+    }
+    .text-block {
+      width: 100%;
+    }
+    a.explore-btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 32px;
+      border-radius: 20px;
+      margin-left: 0;
+    }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6130b5;
+    padding: 15px 0;
+    background: rgba(252, 248, 255, 0.9);
+    box-shadow: 0 -3px 8px rgba(126, 87, 194, 0.2);
+    width: 100%;
+  }
+  footer a {
+    color: #9c27b0;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: 600;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+
+    <div class="media-row">
+      <img class="main-image" src="portada.jpeg" alt="Portada Atlas de las Emociones" />
+      
+      <div class="text-content">
+        <div class="text-block">
+          <p class="info-text">
+            Las emociones son el lenguaje del alma, señales que nos guían para entendernos y conectar con el mundo que nos rodea. Explora cada una y descubre la riqueza de tu mundo interior.
+          </p>
+         
+          <p class="info-text scientific">
+            Las emociones son respuestas del cerebro y del cuerpo ante estímulos internos o externos. Se producen cuando el sistema nervioso interpreta una situación y activa cambios fisiológicos, como variaciones en el ritmo cardíaco, la respiración o la tensión muscular.
+          </p>
+          <p class="info-text scientific">
+            Estas respuestas tienen un componente subjetivo (lo que sentimos), un componente físico (los cambios en el cuerpo) y un componente conductual (cómo actuamos).
+          </p>
+          <p class="info-text scientific">
+            Las emociones básicas más estudiadas son: alegría, tristeza, miedo, enojo, sorpresa y disgusto. Su función principal es ayudarnos a adaptarnos y responder rápidamente a nuestro entorno.
+          </p>
+          <p class="info-text scientific">
+            A nivel cerebral, áreas como la amígdala, el hipotálamo y la corteza prefrontal participan en la generación y regulación emocional. La amígdala es clave para el procesamiento del miedo y la respuesta rápida ante amenazas, mientras que la corteza prefrontal ayuda a modular estas respuestas para una adecuada toma de decisiones.
+          </p>
+          <p class="info-text scientific">
+            Además, las emociones influyen en nuestra memoria, atención y aprendizaje, condicionando nuestras reacciones y comportamientos a lo largo de la vida. Comprenderlas profundamente nos permite desarrollar inteligencia emocional, una habilidad vital para el bienestar personal y social.
+          </p>
+        </div>
+
+        <a href="emociones.html" class="explore-btn">🌈 EXPLORAR</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Atlas de las Emociones</p>
+  </footer>
+
+</body>
+</html>

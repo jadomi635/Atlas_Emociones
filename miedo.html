@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Atlas emocional: profundidad y creatividad para entender el miedo, su función, manifestaciones y estrategias para manejarlo." />
+<title>Miedo - Atlas de las Emociones</title>
+<style>
+  /* ====== ESTILOS GENERALES ====== */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom, #2f2f3e, #5a5a7b);
+    color: #eee;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 1.5s ease;
+    padding-bottom: 60px;
+  }
+  header {
+    background-color: #3a3a54;
+    padding: 25px 20px 30px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(58, 58, 84, 0.8);
+    position: relative;
+    animation: fadeInDown 1s ease;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 3em;
+    color: #f0e9d2;
+    user-select: none;
+  }
+  .frase-motivadora {
+    font-style: italic;
+    font-size: 1.3em;
+    color: #d7cda6;
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.6s;
+  }
+  .btn-regresar {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    padding: 12px 25px;
+    background-color: #7f7f9a;
+    color: white;
+    font-size: 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+    user-select: none;
+  }
+  .btn-regresar:hover {
+    background-color: #585877;
+  }
+
+  .container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 80px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.2s ease;
+  }
+  .silueta {
+    flex: 1;
+    min-width: 360px;
+    text-align: center;
+  }
+  .silueta img {
+    width: 180px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(58, 58, 84, 0.6);
+    margin-bottom: 30px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+  }
+  .silueta img:hover {
+    transform: scale(1.15) rotate(2deg);
+    box-shadow: 0 20px 50px rgba(58, 58, 84, 0.9);
+  }
+  .foto-titulo {
+    font-weight: 700;
+    color: #a5a4af;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    user-select: none;
+  }
+  .foto {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(58, 58, 84, 0.7);
+    transform: scale(1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .foto:hover {
+    transform: scale(1.25) rotate(-2deg);
+    box-shadow: 0 20px 50px rgba(58, 58, 84, 0.95);
+  }
+
+  /* TABS PRINCIPALES */
+  .tabs {
+    flex: 2;
+    min-width: 350px;
+    background: #1f1f2e;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(58, 58, 84, 0.6);
+    padding: 30px 35px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .tab-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    user-select: none;
+  }
+  .tab-buttons button {
+    flex: 1;
+    padding: 14px 18px;
+    font-size: 1.05rem;
+    border: none;
+    background: #555575;
+    color: #e0d9b8;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .tab-buttons button:hover:not(.active) {
+    transform: scale(1.05);
+    background: #70708f;
+  }
+  .tab-buttons button.active {
+    background: #d9c88f;
+    color: #2f2f3e;
+    font-weight: 700;
+    cursor: default;
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.8s ease;
+    color: #ddd;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  h2 {
+    color: #d9c88f;
+    margin-top: 0;
+    user-select: none;
+  }
+  p, ul, li {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+  }
+  ul {
+    padding-left: 22px;
+  }
+  li {
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  /* SUBTABS dentro de Descripción */
+  .subtab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #d9c88f;
+    user-select: none;
+  }
+  .subtab-button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    background: #555575;
+    color: #e0d9b8;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .subtab-button:hover:not(.active) {
+    background: #70708f;
+    transform: scale(1.05);
+  }
+  .subtab-button.active {
+    background: #d9c88f;
+    color: #2f2f3e;
+    font-weight: 700;
+    cursor: default;
+  }
+  .subtab-content {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .subtab-content.active {
+    display: block;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll styling for tabs */
+  .tabs::-webkit-scrollbar {
+    width: 8px;
+  }
+  .tabs::-webkit-scrollbar-track {
+    background: #2f2f3e;
+  }
+  .tabs::-webkit-scrollbar-thumb {
+    background-color: #d9c88f;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>😨 Miedo</h1>
+  <p class="frase-motivadora">El miedo es un guardián sabio que nos protege y nos impulsa a ser valientes. 🛡️</p>
+  <a href="emociones.html" class="btn-regresar" title="Regresar a Emociones">⬅ Regresar</a>
+</header>
+
+<div class="container">
+  <div class="silueta">
+    <h2>¿Dónde se siente el miedo?</h2>
+    <img src="silueta-miedo.png" alt="Silueta Miedo - zonas de activación corporal" />
+    <div class="foto-titulo">Cómo se representa</div>
+    <img class="foto" src="foto-miedo.png" alt="Persona expresando miedo" />
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Contenido sobre el miedo">
+    <div class="tab-buttons">
+      <button class="active" data-tab="descripcion" role="tab" aria-selected="true" aria-controls="descripcion" id="tab-descripcion">Descripción</button>
+      <button data-tab="funcion" role="tab" aria-selected="false" aria-controls="funcion" id="tab-funcion">Función</button>
+      <button data-tab="manifestacion" role="tab" aria-selected="false" aria-controls="manifestacion" id="tab-manifestacion">Manifestación y expresión</button>
+      <button data-tab="tipos" role="tab" aria-selected="false" aria-controls="tipos" id="tab-tipos">Tipos de miedo</button>
+      <button data-tab="regulacion" role="tab" aria-selected="false" aria-controls="regulacion" id="tab-regulacion">Regulación emocional</button>
+      <button data-tab="cerebro" role="tab" aria-selected="false" aria-controls="cerebro" id="tab-cerebro">¿Qué pasa en el cerebro?</button>
+      <button data-tab="estrategias" role="tab" aria-selected="false" aria-controls="estrategias" id="tab-estrategias">Estrategias para calmarlo</button>
+      <button data-tab="cultura" role="tab" aria-selected="false" aria-controls="cultura" id="tab-cultura">Referentes culturales</button>
+    </div>
+
+    <!-- Descripción -->
+    <div id="descripcion" class="tab-content active" role="tabpanel" aria-labelledby="tab-descripcion">
+      <p>¿Qué es el miedo? Es una emoción natural que se caracteriza por experimentar una sensación desagradable e intensa ante la percepción de un peligro real o imaginario. Es una de las pocas emociones básicas que compartimos con muchos animales. La consecuencia suele ser huir ante el peligro, intentar evitarlo o combatir aquello que lo causa.</p>
+
+      <p>Se ha identificado que a lo que más teme el ser humano es a las grandes alturas, a los animales peligrosos, a las lesiones corporales y enfermedades, a los lugares públicos abiertos, al tráfico, a hablar en público y a los espacios estrechos. El miedo infantil más común es a la oscuridad, aunque esta respuesta suele decrecer con la edad. Por otra parte, el miedo reprime al instinto lúdico, frena la iniciativa y la creatividad.</p>
+
+      <p>Te explicamos qué es el miedo, para qué sirve y qué pasa en el cerebro y en el cuerpo ante su presencia. Además, algunas estrategias para calmar el miedo.</p>
+
+      <p>El término “miedo” proviene del latín <em>metus</em>, que significa “temor”, “pavor” o “espanto”. A lo largo de la historia, el miedo ha estado presente en reflexiones filosóficas, códigos de conducta y valores transmitidos de generación en generación, influenciando la cultura y la moral de cada época.</p>
+    </div>
+
+    <!-- Función -->
+    <div id="funcion" class="tab-content" role="tabpanel" aria-labelledby="tab-funcion">
+      <h2>Función del miedo</h2>
+      <p>Es considerada una de las emociones más primitivas, pues su función es prepararnos para la supervivencia, para dar una respuesta rápida y eficaz ante una amenaza. Asimismo, es un mecanismo de defensa, provocado por cosas específicas y que funciona como una alarma psicológica que avisa de amenazas para la integridad física y el bienestar de la persona.</p>
+      <p>La respuesta ante el miedo puede manifestarse de distintas maneras, como la lucha, la huída o la inmovilización. Son reacciones evolutivamente adaptadas para proteger al individuo.</p>
+    </div>
+
+    <!-- Manifestación y expresión -->
+    <div id="manifestacion" class="tab-content" role="tabpanel" aria-labelledby="tab-manifestacion">
+      <h2>Manifestación y expresión del miedo</h2>
+      <p>El miedo se manifiesta en cuatro niveles:</p>
+      <ul>
+        <li><strong>Cognitivo:</strong> pensamientos e imágenes negativas sobre la situación temida.</li>
+        <li><strong>Fisiológico:</strong> cambios corporales como aceleración del ritmo cardiaco, respiración rápida, temblores, sudoración y piloerección.</li>
+        <li><strong>Conductual:</strong> acciones hacia el estímulo temido, como paralizarse, escapar o llorar.</li>
+        <li><strong>Neuronal:</strong> se origina en la amígdala y otras áreas cerebrales, activando respuestas automáticas antes que la razón intervenga.</li>
+      </ul>
+    </div>
+
+    <!-- Tipos de miedo -->
+    <div id="tipos" class="tab-content" role="tabpanel" aria-labelledby="tab-tipos">
+      <h2>Diferentes tipos de miedo</h2>
+      <ul>
+        <li><strong>Miedo real:</strong> surge de un peligro real y tiene valor adaptativo.</li>
+        <li><strong>Miedo irreal o irracional:</strong> tiene origen en pensamientos imaginarios, a menudo asociado con fobias.</li>
+        <li><strong>Miedo normal:</strong> adaptativo, breve y alerta.</li>
+        <li><strong>Miedo patológico:</strong> sin peligro real, persistente, afecta la vida cotidiana.</li>
+        <li><strong>Miedo social:</strong> temor a ser juzgado o ridiculizado.</li>
+        <li><strong>Miedo físico:</strong> temor a sensaciones dolorosas, como ir al médico.</li>
+        <li><strong>Miedo al compromiso:</strong> miedo a entregar libertad en relaciones.</li>
+        <li><strong>Miedo a ser descubierto:</strong> temor por actos ocultos o errores.</li>
+        <li><strong>Miedo al fracaso:</strong> relacionado con expectativas y perfeccionismo.</li>
+        <li><strong>Miedo a la soledad:</strong> necesidad social y emocional afectada.</li>
+        <li><strong>Miedo a la muerte:</strong> temor a perder la vida o a la desaparición.</li>
+      </ul>
+      <p><em>Diferencia entre miedo y fobia:</em> el miedo es una respuesta racional y atenta, la fobia es irracional y genera evitación intensa y ataques de pánico.</p>
+    </div>
+
+    <!-- Regulación emocional -->
+    <div id="regulacion" class="tab-content" role="tabpanel" aria-labelledby="tab-regulacion">
+      <h2>Regulación emocional del miedo</h2>
+      <p>La regulación emocional consiste en modular la intensidad y duración del miedo para adaptarnos social y biológicamente.</p>
+      <p>Pasos clave incluyen:</p>
+      <ul>
+        <li>Reconocer la emoción: ¿qué ocurrió? ¿cómo me siento? ¿qué quiero hacer?</li>
+        <li>Analizar pensamientos y conductas que influencian el miedo.</li>
+        <li>Implementar estrategias para controlar pensamientos dolorosos.</li>
+      </ul>
+      <h3>Respiración diafragmática profunda</h3>
+      <ol>
+        <li>Siéntese en el suelo con columna recta.</li>
+        <li>Coloque una mano en el abdomen y otra en el pecho.</li>
+        <li>Inhale lenta y profundamente por la nariz, elevando el abdomen.</li>
+        <li>Exhale suavemente por la boca, repitiendo por 5 a 10 minutos.</li>
+        <li>Al final, compare la tensión corporal inicial y final.</li>
+      </ol>
+    </div>
+
+    <!-- ¿Qué pasa en el cerebro? -->
+    <div id="cerebro" class="tab-content" role="tabpanel" aria-labelledby="tab-cerebro">
+      <h2>¿Qué ocurre en el cerebro cuando sentimos miedo?</h2>
+      <p>El miedo se origina en el sistema límbico y activa estas áreas clave:</p>
+      <ul>
+        <li><strong>Amígdala:</strong> identifica amenazas y envía señales de alarma.</li>
+        <li><strong>Hipotálamo:</strong> activa el sistema nervioso autónomo para la respuesta física.</li>
+        <li><strong>Hipocampo:</strong> relaciona el miedo con recuerdos y contexto.</li>
+        <li><strong>Corteza prefrontal:</strong> evalúa y regula la respuesta emocional.</li>
+      </ul>
+      <p>En casos intensos o prolongados, estas respuestas pueden descontrolarse, generando trastornos de ansiedad.</p>
+    </div>
+
+    <!-- Estrategias para calmar el miedo -->
+    <div id="estrategias" class="tab-content" role="tabpanel" aria-labelledby="tab-estrategias">
+      <h2>Estrategias para calmar el miedo</h2>
+      <ul>
+        <li>Aceptar el miedo como una emoción natural sin resistencia.</li>
+        <li>Ejercicio físico para liberar endorfinas y reducir estrés.</li>
+        <li>Meditación y mindfulness para mantener la atención en el presente.</li>
+        <li>Respiración profunda y lenta para relajar mente y cuerpo.</li>
+        <li>Redireccionar la atención hacia estímulos positivos o neutrales.</li>
+        <li>Buscar apoyo profesional cuando el miedo es persistente o limitante.</li>
+      </ul>
+    </div>
+
+    <!-- Referentes culturales -->
+    <div id="cultura" class="tab-content" role="tabpanel" aria-labelledby="tab-cultura">
+      <h2>Referentes culturales y sociales</h2>
+      <p>La película <strong>Inside Out (Intensa-Mente)</strong> muestra cómo el personaje del Miedo influye en la vida de la protagonista. Se destaca que, aunque el miedo puede paralizar, también es una ventaja que nos protege.</p>
+
+      <h3>¿Por qué nos gustan las películas de terror?</h3>
+      <ul>
+        <li>Nos dan una exaltación emocionante.</li>
+        <li>Estamos aterrorizados, pero seguros.</li>
+        <li>Nos preparan para lo peor.</li>
+        <li>Nos enseñan a sobrellevar situaciones difíciles.</li>
+        <li>Exploran nuestro lado oscuro.</li>
+        <li>Nos hacen sentir diferentes a la víctima, aumentando la sensación de supervivencia.</li>
+      </ul>
+
+      <h3>Películas clásicas de terror</h3>
+      <ul>
+        <li><em>Psicosis</em> – Alfred Hitchcock (1960)</li>
+        <li><em>El exorcista</em> – William Friedkin (1973)</li>
+        <li><em>Tiburón</em> – Steven Spielberg (1975)</li>
+        <li><em>El resplandor</em> – Stanley Kubrick (1980)</li>
+        <li><em>Hereditary</em> – Ari Aster (2018)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Manejo de tabs principales
+  const tabButtons = document.querySelectorAll('.tab-buttons button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.getAttribute('data-tab');
+
+      // Cambiar botones
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
+
+      // Cambiar contenido
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(target).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

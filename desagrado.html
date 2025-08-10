@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Página dedicada a la emoción del Desagrado, con información, impacto y estrategias para manejarla." />
+<title>Desagrado - Atlas de las Emociones</title>
+<style>
+  /* ====== ESTILOS ====== */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom, #fbe9e7, #ffd7cc);
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 1.5s ease;
+  }
+  header {
+    background-color: #ff7043;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(255, 112, 67, 0.6);
+    position: relative;
+    animation: fadeInDown 1s ease;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: #bf360c;
+  }
+  .frase-motivadora {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #bf360c;
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+  }
+  .btn-regresar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #e64a19;
+    color: white;
+    font-size: 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
+  .btn-regresar:hover {
+    background-color: #bf360c;
+  }
+  .container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 40px auto 60px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.2s ease;
+  }
+  .silueta {
+    flex: 1;
+    min-width: 350px;
+    text-align: center;
+  }
+  .silueta img {
+    width: 180px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(255, 112, 67, 0.3);
+    margin-bottom: 30px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+  }
+  .silueta img:hover {
+    transform: scale(1.25) rotate(2deg);
+    box-shadow: 0 20px 50px rgba(255, 112, 67, 0.8);
+  }
+  .foto-titulo {
+    font-weight: 700;
+    color: #ff7043;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+  }
+  .tabs {
+    flex: 2;
+    min-width: 320px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(255, 112, 67, 0.3);
+    padding: 25px 30px;
+  }
+  .tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab-buttons button {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    background: #ffccbc;
+    color: #ff7043;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .tab-buttons button:hover {
+    transform: scale(1.05);
+  }
+  .tab-buttons button.active {
+    background: #ff7043;
+    color: white;
+    font-weight: bold;
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.8s ease;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  h2 {
+    color: #ff7043;
+    margin-top: 0;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  .foto {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(255, 112, 67, 0.4);
+    transform: scale(1);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .foto:hover {
+    transform: scale(1.25) rotate(-2deg);
+    box-shadow: 0 20px 50px rgba(255, 112, 67, 0.8);
+  }
+
+  /* Subtab styles */
+  .subtab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #ff7043;
+  }
+  .subtab-button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    border: none;
+    background: #ffccbc;
+    color: #ff7043;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  .subtab-button:hover {
+    background: #ffb394;
+    transform: scale(1.05);
+  }
+  .subtab-button.active {
+    background: #ff7043;
+    color: white;
+    font-weight: bold;
+    cursor: default;
+  }
+  .subtab-content {
+    display: none;
+    animation: fadeIn 0.6s ease;
+  }
+  .subtab-content.active {
+    display: block;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤢 Desagrado</h1>
+  <p class="frase-motivadora">"El desagrado es una señal para protegerte y crecer."</p>
+  <a href="emociones.html" class="btn-regresar">⬅ Regresar</a>
+</header>
+
+<div class="container">
+  <div class="silueta">
+    <h2>¿Dónde se siente?</h2>
+    <img src="silueta-desagrado.png" alt="Silueta Desagrado - zonas de activación corporal" />
+    
+    <div class="foto-titulo">Cómo se representa</div>
+    <img class="foto" src="foto-desagrado.png" alt="Persona mostrando desagrado" />
+  </div>
+
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="active" data-tab="descripcion">Descripción</button>
+      <button data-tab="impacto">Impacto en la salud</button>
+      <button data-tab="curiosidades">Datos curiosos</button>
+      <button data-tab="estrategias">Estrategias</button>
+    </div>
+
+    <!-- Contenido pestaña Descripción con subtabs -->
+    <div id="descripcion" class="tab-content active">
+      <div class="subtab-buttons">
+        <button class="subtab-button active" data-subtab="que-es">¿Qué es el desagrado?</button>
+        <button class="subtab-button" data-subtab="cuando-aparece">¿Cuándo aparece?</button>
+        <button class="subtab-button" data-subtab="psicologia">Perspectiva psicológica</button>
+        <button class="subtab-button" data-subtab="evolucion">Raíces evolutivas</button>
+        <button class="subtab-button" data-subtab="aprendizaje">Teoría del aprendizaje</button>
+        <button class="subtab-button" data-subtab="cognicion-social">Cognición social</button>
+        <button class="subtab-button" data-subtab="factores">Factores individuales y culturales</button>
+      </div>
+
+      <div id="que-es" class="subtab-content active">
+        <p>El desagrado es una emoción que se manifiesta como rechazo o aversión ante estímulos que percibimos como desagradables o dañinos, activando respuestas fisiológicas y emocionales para protegernos. Es un mecanismo natural que el cuerpo y la mente usan para mantenernos a salvo, alertándonos sobre aquello que puede ser nocivo o incómodo.</p>
+        <p>Esta emoción negativa se presenta a través de sensaciones físicas que pueden incluir náuseas, tensión muscular o una expresión facial característica, como fruncir el ceño o arrugar la nariz. Sentir desagrado no solo nos ayuda a evitar elementos físicos peligrosos, sino también situaciones, comportamientos o ideas que pueden afectar nuestro bienestar emocional y social.</p>
+        <p>El desagrado es, en definitiva, una herramienta poderosa que nuestro cuerpo usa para establecer límites, cuidarnos y, en última instancia, para favorecer nuestro crecimiento personal y emocional.</p>
+      </div>
+      <div id="cuando-aparece" class="subtab-content">
+        <p>El desagrado puede surgir en una amplia variedad de situaciones y contextos, desde algo tan simple como un olor desagradable o un sabor amargo, hasta la interacción con personas o situaciones que no encajan con nuestros valores o que nos hacen sentir incómodos. Es una emoción altamente subjetiva y personal, influenciada por nuestras experiencias, cultura y aprendizajes.</p>
+        <p>Por ejemplo, podemos sentir desagrado al enfrentarnos a una situación injusta, a un comportamiento grosero o a un lugar sucio o caótico. Estas respuestas emocionales nos alertan y nos preparan para alejarnos o cambiar la situación, protegiendo así nuestra integridad física y emocional.</p>
+        <p>Además, el desagrado puede aparecer tanto frente a estímulos externos como internos, incluyendo pensamientos o recuerdos desagradables que nos causan malestar o rechazo.</p>
+      </div>
+      <div id="psicologia" class="subtab-content">
+        <p>En psicología, el desagrado es considerado una respuesta emocional que juega un papel crucial en la regulación del comportamiento y las relaciones sociales. Se estudia cómo esta emoción influye en la toma de decisiones, la formación de actitudes y la dinámica interpersonal.</p>
+        <p>El desagrado puede motivar conductas de evitación y rechazo, pero también puede servir para definir nuestros límites personales y nuestros valores. Comprender cómo se origina y cómo se manifiesta nos ayuda a manejarla mejor y a construir relaciones más saludables.</p>
+        <p>Además, la forma en que cada persona experimenta el desagrado puede estar condicionada por factores psicológicos individuales, tales como la sensibilidad emocional, la historia personal o incluso la predisposición genética.</p>
+      </div>
+      <div id="evolucion" class="subtab-content">
+        <p>Desde una perspectiva evolutiva, el desagrado tiene una función adaptativa fundamental: proteger nuestra supervivencia. A lo largo de millones de años, nuestros antepasados desarrollaron esta emoción para evitar aquello que podía representar un riesgo para su salud, como alimentos en mal estado o situaciones peligrosas.</p>
+        <p>Esta emoción actúa como un mecanismo de alerta que nos impulsa a mantenernos alejados de aquello que podría enfermarnos o dañarnos, favoreciendo así la conservación de la vida. Por ejemplo, sentir desagrado hacia ciertos olores o sabores fuertes que indican putrefacción es un claro ejemplo de esta función evolutiva.</p>
+        <p>Además, el desagrado no solo se limita a estímulos físicos, sino que también puede aplicarse a comportamientos o situaciones sociales, ayudándonos a evitar conductas que podrían afectar negativamente nuestra posición o bienestar dentro de un grupo.</p>
+      </div>
+      <div id="aprendizaje" class="subtab-content">
+        <p>La teoría del aprendizaje sostiene que el desagrado puede ser condicionado a través de experiencias negativas asociadas a ciertos estímulos. Por ejemplo, si alguien ha tenido una mala experiencia al consumir un alimento específico, puede desarrollar un rechazo automático hacia ese alimento o a otros similares.</p>
+        <p>Este condicionamiento ayuda a explicar por qué algunas personas pueden sentir desagrado ante situaciones o cosas que no necesariamente son objetivamente dañinas, sino que están asociadas a un recuerdo o experiencia desagradable.</p>
+        <p>El aprendizaje también puede ocurrir de manera social, a través de la observación y la imitación, lo que significa que podemos adquirir desagrado por cosas que vemos que otros rechazan o desaprueban.</p>
+      </div>
+      <div id="cognicion-social" class="subtab-content">
+        <p>La teoría de la cognición social señala que el desagrado está influenciado por nuestros pensamientos, creencias y percepciones sobre el mundo y las personas que nos rodean. Así, el desagrado puede estar mediado por prejuicios, estereotipos o normas sociales.</p>
+        <p>Por ejemplo, una persona puede sentir desagrado hacia ciertos grupos sociales o ideas basándose en creencias aprendidas, incluso sin una experiencia directa que justifique esa emoción. Esto puede influir en la forma en que interactuamos y juzgamos a los demás.</p>
+        <p>Reconocer esta influencia es clave para trabajar en la aceptación y en la empatía, y así reducir reacciones de desagrado injustificadas o dañinas para las relaciones humanas.</p>
+      </div>
+      <div id="factores" class="subtab-content">
+        <p>El desagrado es una emoción que varía considerablemente entre individuos debido a una combinación de factores individuales, sociales y culturales. Por ejemplo, ciertos alimentos o prácticas que en una cultura son ampliamente aceptados, pueden provocar desagrado en otra.</p>
+        <p>Factores como la educación, las experiencias personales, la religión y la tradición influyen en cómo cada persona experimenta y expresa esta emoción. Además, la sensibilidad personal y el contexto actual también pueden modificar la intensidad o la aparición del desagrado.</p>
+        <p>Por ello, es importante entender y respetar estas diferencias para fomentar la convivencia y evitar malentendidos.</p>
+      </div>
+    </div>
+
+    <!-- Impacto en la salud -->
+    <div id="impacto" class="tab-content">
+      <h2>Impacto en la salud</h2>
+      <ul>
+        <li><strong>Función protectora:</strong> El desagrado actúa para evitar sustancias o situaciones que pueden ser dañinas para nuestro cuerpo y mente, protegiendo nuestra integridad.</li>
+        <li><strong>Reacciones físicas:</strong> Puede causar síntomas como náuseas, contracciones estomacales, sudoración o aumento del ritmo cardíaco, todos indicativos de una respuesta de alerta del organismo.</li>
+        <li><strong>Salud mental:</strong> Un desagrado persistente o mal gestionado puede generar estrés, ansiedad e incluso aislamiento social, afectando la calidad de vida y el bienestar emocional.</li>
+        <li><strong>Relaciones sociales:</strong> El rechazo o incomodidad hacia ciertas personas o situaciones puede dificultar las relaciones interpersonales y la comunicación efectiva.</li>
+      </ul>
+      <p>Entender el impacto del desagrado nos permite tomar medidas para gestionarlo de forma saludable, evitando que interfiera en nuestra vida cotidiana y promoviendo un equilibrio emocional.</p>
+    </div>
+
+    <!-- Datos curiosos -->
+    <div id="curiosidades" class="tab-content">
+      <h2>Datos curiosos</h2>
+      <ul>
+        <li>El desagrado tiene raíces evolutivas profundas que nos han ayudado a sobrevivir evitando el contacto con sustancias tóxicas o peligrosas.</li>
+        <li>El sentido del olfato es uno de los más relacionados con el desagrado, pues es clave para detectar olores que alertan sobre posibles riesgos.</li>
+        <li>El desagrado puede ser contagioso socialmente; por ejemplo, ver que alguien muestra rechazo hacia algo puede generar que otros también lo sientan.</li>
+        <li>Algunas culturas valoran o rechazan ciertos sabores o alimentos que en otras pueden provocar desagrado, demostrando cómo el contexto cultural moldea esta emoción.</li>
+        <li>Las expresiones faciales de desagrado, como arrugar la nariz o fruncir el ceño, son universales y ayudan a comunicar a los demás nuestras emociones y límites.</li>
+      </ul>
+    </div>
+
+    <!-- Estrategias -->
+    <div id="estrategias" class="tab-content">
+      <h2>Estrategias para manejar el desagrado</h2>
+      <ul>
+        <li><strong>Identificar las causas:</strong> Conocer qué genera nuestro desagrado es el primer paso para poder manejarlo de forma consciente y efectiva.</li>
+        <li><strong>Aceptar la emoción:</strong> Reconocer que sentir desagrado es natural y no debemos juzgarnos por ello, pero sí podemos aprender a gestionarlo.</li>
+        <li><strong>Buscar formas saludables de afrontarlo:</strong> Técnicas como la meditación, respiración consciente o el diálogo interno positivo pueden ser de gran ayuda.</li>
+        <li><strong>Exposición gradual:</strong> Enfrentar poco a poco las situaciones o estímulos que causan desagrado puede disminuir la intensidad de la emoción con el tiempo.</li>
+        <li><strong>Comunicación:</strong> Hablar con personas de confianza nos ayuda a expresar lo que sentimos y a entender mejor nuestra emoción, favoreciendo el apoyo emocional.</li>
+        <li><strong>Apoyo profesional:</strong> Cuando el desagrado interfiere significativamente en nuestra vida diaria, acudir a un terapeuta o especialista puede ser fundamental para trabajar la emoción en profundidad.</li>
+      </ul>
+      <p>Recuerda, cada paso que das para comprender y manejar tu desagrado es un acto de amor propio y crecimiento. ¡Eres más fuerte de lo que crees!</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Pestañas principales
+  const tabButtons = document.querySelectorAll('.tab-buttons button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Subpestañas dentro de descripción
+  const subtabButtons = document.querySelectorAll('.subtab-button');
+  const subtabContents = document.querySelectorAll('.subtab-content');
+
+  subtabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      subtabButtons.forEach(btn => btn.classList.remove('active'));
+      subtabContents.forEach(content => content.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(button.dataset.subtab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
